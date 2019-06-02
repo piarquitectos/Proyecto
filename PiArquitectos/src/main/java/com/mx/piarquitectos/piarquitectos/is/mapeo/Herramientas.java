@@ -6,6 +6,7 @@
 package com.mx.piarquitectos.piarquitectos.is.mapeo;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,8 @@ public class Herramientas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "codigo_barra")
+    private int codigo_barra;
     @Column(name = "id")
     private int id;
     @Column(name = "precio")
@@ -43,10 +46,51 @@ public class Herramientas {
     private String motivo_baja;
     @Column(name = "tipo")
     private String tipo;
+    static private  List<Herramientas> herramientas;
+
+    public Herramientas() {
+      
+    }
+public List<Herramientas> getHerramientas() {
+    return herramientas;
+}
+    public byte[] getFoto1() {
+        return foto1;
+    }
+
+    public void setFoto1(byte[] foto1) {
+        this.foto1 = foto1;
+    }
+
+    public byte[] getFoto2() {
+        return foto2;
+    }
+
+    public void setFoto2(byte[] foto2) {
+        this.foto2 = foto2;
+    }
+
+    public byte[] getFoto3() {
+        return foto3;
+    }
+
+    public void setFoto3(byte[] foto3) {
+        this.foto3 = foto3;
+    }
+
     @Column(name = "subtipo")
     private String subtipo;
-    @Column(name = "codigo_barra")
-    private int codigo_barra;
+
+    @Column(name = "foto1")
+    private byte[] foto1;
+    @Column(name = "foto2")
+    private byte[] foto2;
+    @Column(name = "foto3")
+    private byte[] foto3;
+
+    public Herramientas(int codigo_barra) {
+        this.codigo_barra = codigo_barra;
+    }
 
     public int getId() {
         return id;
@@ -144,4 +188,7 @@ public class Herramientas {
         this.codigo_barra = codigo_barra;
     }
 
+    public void setUsers(List<Herramientas> herramientas) {
+        this.herramientas = herramientas;
+    }
 }

@@ -111,7 +111,7 @@ public class HerramientasDAO {
      *
      * @return la lista que contiene a todos las herramientas de la base de datos
      */
-    public List<Herramientas> getherramientas() {
+    public List<Herramientas> getHerramientas() {
         List<Herramientas> result = null;
         Session session = sessionFactory.openSession();
         Transaction tx = null;
@@ -132,7 +132,7 @@ public class HerramientasDAO {
         return result;
     }
 
-    public Herramientas getUsuario(String modelo) {
+    public Herramientas getHerramientas(String modelo) {
         Herramientas result = null;
         Session s = sessionFactory.openSession();
         Transaction tx = null;

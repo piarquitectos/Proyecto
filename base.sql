@@ -42,7 +42,7 @@ CREATE TABLE Material(
 );
 
 CREATE TABLE Herramientas(
-  id SERIAL  PRIMARY KEY,
+  id SERIAL ,
   precio INTEGER,
   no_serie VARCHAR(50),
   modelo VARCHAR(100),
@@ -53,17 +53,20 @@ CREATE TABLE Herramientas(
   motivo_baja VARCHAR(500),
   tipo VARCHAR(120),
   subtipo VARCHAR(200),
-  codigo_barra INTEGER
+  codigo_barra SERIAL  PRIMARY KEY,
+  foto1 BYTEA,
+  foto2 BYTEA,
+  foto3 BYTEA
 );
 
 CREATE TABLE Enviado(
   id SERIAL  PRIMARY KEY,
-  fk_id_herramienta  INTEGER,
+  fk_codigo_barra  INTEGER,
   fk_id_persona INTEGER
 );
 CREATE TABLE Recibido(
   id SERIAL  PRIMARY KEY,
-  fk_id_herramienta  INTEGER,
+  fk_codigo_barra   INTEGER,
   fk_id_persona INTEGER
 );
 
@@ -77,14 +80,19 @@ CREATE TABLE Utiliza(
   fk_id_material INTEGER
 );
 
-ALTER TABLE Persona ADD FOREIGN KEY(fk_id_herramienta) REFERENCES Herramientas (id) ON DELETE CASCADE;
+ALTER TABLE Persona ADD FOREIGN KEY(fk_codigo_barra ) REFERENCES Herramientas (codigo_barra) ON DELETE CASCADE;
 ALTER TABLE Persona ADD FOREIGN KEY(fk_id_proyecto) REFERENCES Proyecto (id) ON DELETE CASCADE;
 ALTER TABLE Proyecto ADD FOREIGN KEY(fk_id_persona) REFERENCES Persona (id) ON DELETE CASCADE;
-ALTER TABLE Enviado ADD FOREIGN KEY(fk_id_herramienta) REFERENCES Herramientas (id) ON DELETE CASCADE;
+ALTER TABLE Enviado ADD FOREIGN KEY(fk_codigo_barra) REFERENCES Herramientas (codigo_barra) ON DELETE CASCADE;
 ALTER TABLE Enviado ADD FOREIGN KEY(fk_id_persona) REFERENCES Persona (id) ON DELETE CASCADE;
-ALTER TABLE Recibido ADD FOREIGN KEY(fk_id_herramienta) REFERENCES Herramientas (id) ON DELETE CASCADE;
+ALTER TABLE Recibido ADD FOREIGN KEY(fk_codigo_barra) REFERENCES Herramientas (codigo_barra) ON DELETE CASCADE;
 ALTER TABLE Recibido ADD FOREIGN KEY(fk_id_persona) REFERENCES Persona (id) ON DELETE CASCADE;
 ALTER TABLE Contiene ADD FOREIGN KEY(fk_id_mobilario) REFERENCES Mobilario (id) ON DELETE CASCADE;
 ALTER TABLE Contiene ADD FOREIGN KEY(fk_id_proyecto) REFERENCES Proyecto (id) ON DELETE CASCADE;
 ALTER TABLE Utiliza ADD FOREIGN KEY(fk_id_proyecto) REFERENCES Proyecto (id) ON DELETE CASCADE;
 ALTER TABLE Utiliza ADD FOREIGN KEY(fk_id_material) REFERENCES Material (id_material) ON DELETE CASCADE;
+
+
+CREATE SEQUENCE codigo_barra_seq 
+  INCREMENT 1
+  START 1000001;
